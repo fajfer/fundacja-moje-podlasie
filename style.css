@@ -686,13 +686,42 @@
       .about-grid {
         grid-template-columns: 1fr;
       }
-      /* On mobile, reorder so each stat sits above its card */
-      .about-grid .card-stat:nth-child(1) { order: 1; }
-      .about-grid > article:nth-of-type(1) { order: 2; }
-      .about-grid .card-stat:nth-child(2) { order: 3; }
-      .about-grid > article:nth-of-type(2) { order: 4; }
-      .about-grid .about-drawing { order: 5; }
-      .about-grid > article:nth-of-type(3) { order: 6; }
+      /* Mobile: 3 cards first (Misja, Wizja, Dlaczego), then 2 stats below.
+         The illustration is hidden — too dense on small screens. */
+      .about-grid > article:nth-of-type(1) { order: 1; }
+      .about-grid > article:nth-of-type(2) { order: 2; }
+      .about-grid > article:nth-of-type(3) { order: 3; }
+      .about-grid .card-stat:nth-child(1)  { order: 4; }
+      .about-grid .card-stat:nth-child(2)  { order: 5; }
+      .about-grid .about-drawing            { display: none; }
+
+      /* Icon moves to the right of the heading on mobile;
+         body text (paragraph or list) spans full width below. */
+      .about-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "title icon"
+          "body  body";
+        column-gap: 18px;
+        align-items: center;
+      }
+      .about-card .about-icon {
+        grid-area: icon;
+        margin-bottom: 0;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+      }
+      .about-card h3 {
+        grid-area: title;
+        margin-bottom: 0;
+      }
+      .about-card p,
+      .about-card .about-why-list {
+        grid-area: body;
+        margin-top: 14px;
+      }
     }
 
     .about-card {
@@ -817,6 +846,7 @@
       .areas-header .areas-illu {
         width: 70%;
         max-width: 280px;
+        align-self: center;
       }
     }
 
@@ -1165,7 +1195,11 @@
     }
     @media (max-width: 680px) {
       .docs-header { flex-direction: column; align-items: flex-start; }
-      .docs-header .docs-illu { width: 60%; max-width: 220px; }
+      .docs-header .docs-illu {
+        width: 60%;
+        max-width: 220px;
+        align-self: center;
+      }
     }
     #docs .eyebrow { color: var(--mute); }
     #docs .eyebrow::before { background: var(--ink); }
