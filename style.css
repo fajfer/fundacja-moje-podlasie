@@ -1380,7 +1380,7 @@
     .partner-closing {
       margin-top: clamp(28px, 4vw, 50px);
       padding-top: clamp(16px, 2vw, 24px);
-      border-top: 2px solid var(--ink);
+      border-top: none;
       position: relative;
       z-index: 2;
     }
