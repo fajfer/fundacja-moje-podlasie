@@ -1424,20 +1424,19 @@
     });
 
     // Prepare: hide everything with correct direction
-    // Store lengths for later use
-    const lineLengths = new Map();
     lines.forEach(line => {
       let length = 0;
       try { length = line.getTotalLength(); } catch (e) { length = 400; }
-      lineLengths.set(line, length);
       const dir = lineDirections.get(line);
-      line.setAttribute('stroke-dasharray', length);
-      line.setAttribute('stroke-dashoffset', dir === 'forward' ? length : -length);
+      line.style.strokeDasharray  = length;
+      line.style.strokeDashoffset = dir === 'forward' ? length : -length;
       line.style.opacity = '1';
+      line.style.transition = 'none';
     });
     dots.forEach(dot => {
-      dot.setAttribute('opacity', '0');
-      dot.removeAttribute('transform');
+      dot.style.opacity    = '0';
+      dot.style.transform  = 'scale(0)';
+      dot.style.transition = 'none';
     });
     svg.classList.add('is-ready');
 
@@ -1459,7 +1458,7 @@
     const maxLenByOrder = {};
     for (let o = 1; o <= maxOrder; o++) {
       const group = linesByOrder[o] || [];
-      maxLenByOrder[o] = group.reduce((max, l) => Math.max(max, lineLengths.get(l) || 300), 0);
+      maxLenByOrder[o] = group.reduce((max, l) => Math.max(max, l.getTotalLength()), 0);
     }
     const totalLen = Object.values(maxLenByOrder).reduce((s, v) => s + v, 0);
     const pausesBudget = PAUSE * maxOrder + DOT_DUR;
@@ -1470,13 +1469,16 @@
       return new Promise(resolve => {
         const group = dotsByOrder[order] || [];
         if (!group.length) { resolve(); return; }
-        group.forEach(dot => {
-          dot.animate([
-            { opacity: 0 },
-            { opacity: 1 }
-          ], { duration: DOT_DUR, easing: 'ease', fill: 'forwards' });
-        });
-        setTimeout(resolve, DOT_DUR * 0.6);
+        // Reset transition to none, then apply values after a frame
+        group.forEach(dot => { dot.style.transition = 'none'; });
+        setTimeout(() => {
+          group.forEach(dot => {
+            dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+            dot.style.opacity   = '1';
+            dot.style.transform = 'scale(1)';
+          });
+          setTimeout(resolve, DOT_DUR * 0.6);
+        }, 20);
       });
     }
 
@@ -1486,17 +1488,17 @@
         if (!group.length) { resolve(); return; }
         const maxLen = maxLenByOrder[order] || 300;
         const dur = maxLen * speed;
-        group.forEach(line => {
-          const length = lineLengths.get(line) || 300;
-          const dir = lineDirections.get(line);
-          const from = dir === 'forward' ? length : -length;
-          const lineDur = length * speed;
-          line.animate([
-            { strokeDashoffset: from },
-            { strokeDashoffset: 0 }
-          ], { duration: lineDur, easing: 'linear', fill: 'forwards' });
-        });
-        setTimeout(resolve, dur);
+        // Reset transition to none, then apply after a frame
+        group.forEach(line => { line.style.transition = 'none'; });
+        setTimeout(() => {
+          group.forEach(line => {
+            const len = line.getTotalLength();
+            const lineDur = len * speed;
+            line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
+            line.style.strokeDashoffset = '0';
+          });
+          setTimeout(resolve, dur);
+        }, 20);
       });
     }
 
