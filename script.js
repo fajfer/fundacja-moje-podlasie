@@ -92,7 +92,10 @@
       'timeline.wrap.aria': 'Linia czasu projektów',
       'loader.aria': 'Ładowanie',
       'lang.pl.label': 'Polski (aktywny)',
-      'lang.en.label': 'Switch to English'
+      'lang.en.label': 'Switch to English',
+      'cookie.text': 'Używamy plików cookie, aby zapewnić najlepsze działanie strony.',
+      'cookie.accept': 'Akceptuję',
+      'cookie.decline': 'Odmawiam'
     },
     en: {
       'skip': 'Skip to main content',
@@ -181,7 +184,10 @@
       'timeline.wrap.aria': 'Project timeline',
       'loader.aria': 'Loading',
       'lang.pl.label': 'Switch to Polish',
-      'lang.en.label': 'English (active)'
+      'lang.en.label': 'English (active)',
+      'cookie.text': 'We use cookies to ensure the best experience on our site.',
+      'cookie.accept': 'Accept',
+      'cookie.decline': 'Decline'
     }
   };
 
@@ -1507,6 +1513,42 @@
   }
 
   /* ════════════════════════════════════════════════
+     COOKIE BANNER
+     ════════════════════════════════════════════════ */
+  function setupCookieBanner() {
+    if (localStorage.getItem('mp-cookie-consent')) return;
+
+    const dict = I18N[state.lang];
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-label', 'Cookie consent');
+    banner.innerHTML =
+      '<p data-i18n="cookie.text">' + dict['cookie.text'] + '</p>' +
+      '<div class="cookie-actions">' +
+        '<button class="cookie-accept" type="button" data-i18n="cookie.accept">' + dict['cookie.accept'] + '</button>' +
+        '<button class="cookie-decline" type="button" data-i18n="cookie.decline">' + dict['cookie.decline'] + '</button>' +
+      '</div>';
+    document.body.appendChild(banner);
+
+    // Slide in after a short delay
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        banner.classList.add('visible');
+      });
+    });
+
+    function dismiss(value) {
+      localStorage.setItem('mp-cookie-consent', value);
+      banner.classList.remove('visible');
+      setTimeout(() => banner.remove(), 400);
+    }
+
+    banner.querySelector('.cookie-accept').addEventListener('click', () => dismiss('accepted'));
+    banner.querySelector('.cookie-decline').addEventListener('click', () => dismiss('declined'));
+  }
+
+  /* ════════════════════════════════════════════════
      LOGO LOADER (preserved network animation)
      ════════════════════════════════════════════════ */
   function runLogoLoader(done) {
@@ -1872,6 +1914,9 @@
       // Start hero network animation when loader fades
       startSvgDraw();
       setTimeout(() => { loader.style.display = 'none'; }, 700);
+
+      // Show cookie banner after loader is gone
+      setTimeout(setupCookieBanner, 1000);
     });
   }
 
