@@ -1148,7 +1148,9 @@
     window.addEventListener('resize', function() {
       clearTimeout(tm);
       tm = setTimeout(function() {
-        ScrollTrigger.getAll().forEach(function(s) { s.kill(); });
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.getAll().forEach(function(s) { s.kill(); });
+        }
         initTimeline();
       }, 300);
     }, { passive: true });
@@ -1327,6 +1329,29 @@
       ul.appendChild(li);
     });
     overlay.appendChild(ul);
+
+    // Clone lang toggle into mobile menu
+    const langSrc = document.querySelector('.lang-toggle');
+    if (langSrc) {
+      const langClone = langSrc.cloneNode(true);
+      langClone.classList.add('mobile-lang');
+      langClone.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.dataset.lang;
+          if (lang === state.lang) return;
+          state.lang = lang;
+          applyI18n();
+          setupTimeline();
+          setupPartners();
+          // Sync both toggles
+          document.querySelectorAll('.lang-toggle button').forEach(b => {
+            b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+          });
+        });
+      });
+      overlay.appendChild(langClone);
+    }
+
     document.body.appendChild(overlay);
 
     function toggleMenu() {

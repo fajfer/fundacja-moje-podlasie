@@ -256,6 +256,16 @@
       transition: opacity 0.2s ease;
     }
     .mobile-nav a:hover { opacity: 0.5; }
+    .mobile-nav .mobile-lang {
+      margin-top: 32px;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .mobile-nav.open .mobile-lang {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.35s ease 0.3s, transform 0.35s ease 0.3s;
+    }
 
     @media (max-width: 760px) {
       .primary-nav { display: none; }
@@ -265,6 +275,7 @@
     @media (prefers-reduced-motion: reduce) {
       .mobile-nav { transition: none; }
       .mobile-nav li { transition: none; opacity: 1; transform: none; }
+      .mobile-nav .mobile-lang { transition: none; opacity: 1; transform: none; }
       .burger-line { transition: none; }
     }
 
