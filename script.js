@@ -1469,12 +1469,18 @@
       return new Promise(resolve => {
         const group = dotsByOrder[order] || [];
         if (!group.length) { resolve(); return; }
+        // Frame 1: set transition
         group.forEach(dot => {
           dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
-          dot.style.opacity   = '1';
-          dot.style.transform = 'scale(1)';
         });
-        setTimeout(resolve, DOT_DUR * 0.6);
+        // Frame 2: change values — Safari needs this separation
+        requestAnimationFrame(() => {
+          group.forEach(dot => {
+            dot.style.opacity   = '1';
+            dot.style.transform = 'scale(1)';
+          });
+          setTimeout(resolve, DOT_DUR * 0.6);
+        });
       });
     }
 
@@ -1484,16 +1490,24 @@
         if (!group.length) { resolve(); return; }
         const maxLen = maxLenByOrder[order] || 300;
         const dur = maxLen * speed;
+        // Frame 1: set transition
         group.forEach(line => {
           const len = line.getTotalLength();
           const lineDur = len * speed;
           line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
-          line.style.strokeDashoffset = '0';
         });
-        setTimeout(resolve, dur);
+        // Frame 2: change values — Safari needs this separation
+        requestAnimationFrame(() => {
+          group.forEach(line => {
+            line.style.strokeDashoffset = '0';
+          });
+          setTimeout(resolve, dur);
+        });
       });
     }
 
+    // Wait one frame after preparation so Safari commits initial styles
+    requestAnimationFrame(() => {
     (async () => {
       await showDots(0);
       await new Promise(r => setTimeout(r, PAUSE));
@@ -1507,6 +1521,7 @@
       await new Promise(r => setTimeout(r, 350));
       done();
     })();
+    });
   }
 
   /* ════════════════════════════════════════════════
