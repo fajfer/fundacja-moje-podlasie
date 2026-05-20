@@ -1388,48 +1388,12 @@
       return;
     }
 
-    // Collect dot positions by order for direction detection
-    const dotPositions = [];
-    dots.forEach(d => {
-      dotPositions.push({
-        x: parseFloat(d.getAttribute('cx')),
-        y: parseFloat(d.getAttribute('cy')),
-        order: Number(d.dataset.order || 0)
-      });
-    });
-
-    // For each line, detect if it should draw forward (x1→x2) or reverse (x2→x1)
-    // by checking which endpoint is closer to a dot of a LOWER order (the "source")
-    const lineDirections = new Map();
-    lines.forEach(line => {
-      const order = Number(line.dataset.order || 1);
-      const x1 = parseFloat(line.getAttribute('x1'));
-      const y1 = parseFloat(line.getAttribute('y1'));
-      const x2 = parseFloat(line.getAttribute('x2'));
-      const y2 = parseFloat(line.getAttribute('y2'));
-
-      // Find nearest lower-order dot to each endpoint
-      const lowerDots = dotPositions.filter(d => d.order < order);
-      let minD1 = Infinity, minD2 = Infinity;
-      lowerDots.forEach(d => {
-        const d1 = Math.hypot(d.x - x1, d.y - y1);
-        const d2 = Math.hypot(d.x - x2, d.y - y2);
-        if (d1 < minD1) minD1 = d1;
-        if (d2 < minD2) minD2 = d2;
-      });
-
-      // If x1,y1 is closer to a source dot → draw forward (normal)
-      // If x2,y2 is closer → draw reverse (negative offset)
-      lineDirections.set(line, minD1 <= minD2 ? 'forward' : 'reverse');
-    });
-
-    // Prepare: hide everything with correct direction
+    // Prepare: hide everything (always positive offset — Safari bugs with negative values)
     lines.forEach(line => {
       let length = 0;
       try { length = line.getTotalLength(); } catch (e) { length = 400; }
-      const dir = lineDirections.get(line);
       line.style.strokeDasharray  = length;
-      line.style.strokeDashoffset = dir === 'forward' ? length : -length;
+      line.style.strokeDashoffset = length;
       line.style.opacity = '1';
       line.style.transition = 'none';
     });
@@ -1473,13 +1437,15 @@
         group.forEach(dot => {
           dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
         });
-        // Frame 2: change values — Safari needs this separation
+        // Double rAF: Safari needs two frames to commit the transition before changing values
+        requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           group.forEach(dot => {
             dot.style.opacity   = '1';
             dot.style.transform = 'scale(1)';
           });
           setTimeout(resolve, DOT_DUR * 0.6);
+        });
         });
       });
     }
@@ -1496,12 +1462,14 @@
           const lineDur = len * speed;
           line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
         });
-        // Frame 2: change values — Safari needs this separation
+        // Double rAF: Safari needs two frames to commit the transition before changing values
+        requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           group.forEach(line => {
             line.style.strokeDashoffset = '0';
           });
           setTimeout(resolve, dur);
+        });
         });
       });
     }
