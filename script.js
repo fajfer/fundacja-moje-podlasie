@@ -277,6 +277,64 @@
   };
 
   /* ════════════════════════════════════════════════
+     FORCE-STOP ALL ANIMATIONS (when reduce-motion activates)
+     ════════════════════════════════════════════════ */
+  function forceStopAllAnimations() {
+    // Counters → jump to final values
+    document.querySelectorAll('.counter').forEach(c => {
+      c.textContent = c.dataset.target;
+    });
+
+    // All stroke-dashoffset illustrations → show fully drawn
+    const strokeEls = document.querySelectorAll(
+      '.about-draw-path, .manifesto-draw-path, .svg-draw-line, .hcurve, ' +
+      '#droneIllu path, #droneIllu polygon, ' +
+      '#printerIllu path, #printerIllu polygon, #printerIllu line, #printerIllu polyline, ' +
+      '#smartphoneIllu path, #smartphoneIllu line, ' +
+      '.network-svg line'
+    );
+    strokeEls.forEach(el => {
+      el.style.transition = 'none';
+      el.style.strokeDashoffset = '0';
+    });
+
+    // All dots (network, phone) → show immediately
+    document.querySelectorAll(
+      '.network-svg circle, #smartphoneIllu circle'
+    ).forEach(d => {
+      d.style.transition = 'none';
+      d.style.opacity = '1';
+      d.style.transform = 'scale(1)';
+    });
+
+    // About drawing → show
+    const aboutDrawing = document.querySelector('.about-drawing');
+    if (aboutDrawing) aboutDrawing.classList.add('in-view');
+
+    // Partnership lines → show
+    const plines = document.querySelector('.plines-canvas');
+    if (plines) plines.classList.add('active');
+
+    // Partner items → show
+    document.querySelectorAll('.partner-col li').forEach(li => li.classList.add('revealed'));
+
+    // Areas/about/contact icon SVGs → show fully drawn
+    document.querySelectorAll('svg.draw-ready, svg.draw-animate').forEach(svg => {
+      svg.querySelectorAll('path, line, circle, polyline, polygon').forEach(el => {
+        el.style.transition = 'none';
+        el.style.strokeDashoffset = '0';
+      });
+    });
+
+    // Manifesto entrance effects
+    document.querySelectorAll(
+      '.manifesto-intro, .manifesto-line, .manifesto-about, .manifesto-work, ' +
+      '.manifesto-bold-statement, .manifesto-bullets li, ' +
+      '.about-intro-text, .about-bold-wrap, .tl-cta'
+    ).forEach(el => el.classList.add('in-view'));
+  }
+
+  /* ════════════════════════════════════════════════
      I18N APPLY
      ════════════════════════════════════════════════ */
   function applyI18n() {
@@ -1434,16 +1492,17 @@
     btn.addEventListener('click', () => {
       state.reduceMotion = !state.reduceMotion;
       applyMotionState();
-
-      // Re-init typed headline
       runTypedHeadline();
+      if (state.reduceMotion) forceStopAllAnimations();
+    });
 
-      // Counters: jump to final values immediately if motion off
-      if (state.reduceMotion) {
-        document.querySelectorAll('.counter').forEach(c => {
-          c.textContent = c.dataset.target;
-        });
-      }
+    // Listen for OS-level reduce-motion changes
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mq.addEventListener('change', (e) => {
+      state.reduceMotion = e.matches;
+      applyMotionState();
+      runTypedHeadline();
+      if (state.reduceMotion) forceStopAllAnimations();
     });
   }
 
