@@ -1327,6 +1327,10 @@
     .pline.t5 { height: 5px; }
     .pline.t8 { height: 8px; }
 
+    @media (max-width: 760px) {
+      .pline.d6, .pline.d7 { display: none; }
+    }
+
     .partner-grid {
       margin-top: 56px;
       display: grid;
@@ -1383,6 +1387,12 @@
       border-top: none;
       position: relative;
       z-index: 2;
+    }
+    @media (max-width: 760px) {
+      .partner-closing {
+        padding-bottom: clamp(28px, 4vw, 50px);
+        border-bottom: 1.5px solid var(--ink);
+      }
     }
     .partner-closing h3 {
       font-family: var(--display);
