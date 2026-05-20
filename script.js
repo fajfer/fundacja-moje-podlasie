@@ -1333,25 +1333,27 @@
       const open = overlay.classList.toggle('open');
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.classList.toggle('menu-locked', open);
+      header.classList.toggle('menu-open', open);
     }
 
     burger.addEventListener('click', toggleMenu);
 
+    function closeMenu() {
+      overlay.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-locked');
+      header.classList.remove('menu-open');
+    }
+
     // Close on link click
     overlay.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        overlay.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('menu-locked');
-      }
+      if (e.target.tagName === 'A') closeMenu();
     });
 
     // Close on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) {
-        overlay.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('menu-locked');
+        closeMenu();
         burger.focus();
       }
     });

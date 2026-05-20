@@ -106,6 +106,7 @@
       transition: border-color 0.3s ease, background 0.3s ease;
     }
     .site-header.scrolled { border-bottom-color: var(--hair); }
+    .site-header.menu-open { z-index: 300; }
 
     .brand {
       font-family: var(--display);
