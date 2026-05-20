@@ -1469,16 +1469,12 @@
       return new Promise(resolve => {
         const group = dotsByOrder[order] || [];
         if (!group.length) { resolve(); return; }
-        // Reset transition to none, then apply values after a frame
-        group.forEach(dot => { dot.style.transition = 'none'; });
-        setTimeout(() => {
-          group.forEach(dot => {
-            dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
-            dot.style.opacity   = '1';
-            dot.style.transform = 'scale(1)';
-          });
-          setTimeout(resolve, DOT_DUR * 0.6);
-        }, 20);
+        group.forEach(dot => {
+          dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+          dot.style.opacity   = '1';
+          dot.style.transform = 'scale(1)';
+        });
+        setTimeout(resolve, DOT_DUR * 0.6);
       });
     }
 
@@ -1488,17 +1484,13 @@
         if (!group.length) { resolve(); return; }
         const maxLen = maxLenByOrder[order] || 300;
         const dur = maxLen * speed;
-        // Reset transition to none, then apply after a frame
-        group.forEach(line => { line.style.transition = 'none'; });
-        setTimeout(() => {
-          group.forEach(line => {
-            const len = line.getTotalLength();
-            const lineDur = len * speed;
-            line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
-            line.style.strokeDashoffset = '0';
-          });
-          setTimeout(resolve, dur);
-        }, 20);
+        group.forEach(line => {
+          const len = line.getTotalLength();
+          const lineDur = len * speed;
+          line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
+          line.style.strokeDashoffset = '0';
+        });
+        setTimeout(resolve, dur);
       });
     }
 
