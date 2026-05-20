@@ -338,6 +338,28 @@
       '.manifesto-bold-statement, .manifesto-bullets li, ' +
       '.about-intro-text, .about-bold-wrap, .tl-cta'
     ).forEach(el => el.classList.add('in-view'));
+
+    // Timeline S-curve path → show fully drawn
+    const tlPath = document.getElementById('tlPath');
+    if (tlPath) {
+      tlPath.style.transition = 'none';
+      tlPath.style.strokeDasharray = 'none';
+      tlPath.style.strokeDashoffset = '0';
+    }
+    // Timeline dots and text
+    document.querySelectorAll('.tl-dot').forEach(d => {
+      d.style.transition = 'none';
+      d.style.transform = 'none';
+    });
+    document.querySelectorAll('.tl-entry h3, .tl-entry .tl-funder, .tl-entry .tl-amount').forEach(el => {
+      el.style.transition = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    document.querySelectorAll('.tl-year').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
   }
 
   /* ════════════════════════════════════════════════
@@ -993,27 +1015,44 @@
     var cta = document.getElementById('tlCta');
     if (!sec || !sp || !sv) return;
 
-    /* ── Reduced motion: show everything ── */
-    if (state.reduceMotion) {
+    /* ── Show all text (shared by reduce-motion and no-GSAP fallback) ── */
+    function showAllStatic() {
       sec.querySelectorAll('.tl-year').forEach(function(yr) { yr.style.opacity = '1'; });
       sec.querySelectorAll('.tl-entry').forEach(function(e) {
         e.querySelectorAll('h3, .tl-funder, .tl-amount').forEach(function(el) {
           el.style.opacity = '1'; el.style.transform = 'none';
         });
       });
+      sec.querySelectorAll('.tl-dot').forEach(function(d) {
+        d.style.transform = 'none';
+      });
       if (cta) cta.classList.add('in-view');
+    }
+
+    /* ── Reduced motion: show everything including the S-curve path ── */
+    if (state.reduceMotion) {
+      showAllStatic();
+      // Still build the path so the S-curve line is visible
+      setTimeout(function() {
+        var path = buildPath();
+        if (path) {
+          sp.style.strokeDasharray  = 'none';
+          sp.style.strokeDashoffset = '0';
+        }
+      }, 50);
       return;
     }
 
     /* ── Check for GSAP ── */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-      sec.querySelectorAll('.tl-year').forEach(function(yr) { yr.style.opacity = '1'; });
-      sec.querySelectorAll('.tl-entry').forEach(function(e) {
-        e.querySelectorAll('h3, .tl-funder, .tl-amount').forEach(function(el) {
-          el.style.opacity = '1'; el.style.transform = 'none';
-        });
-      });
-      if (cta) cta.classList.add('in-view');
+      showAllStatic();
+      setTimeout(function() {
+        var path = buildPath();
+        if (path) {
+          sp.style.strokeDasharray  = 'none';
+          sp.style.strokeDashoffset = '0';
+        }
+      }, 50);
       return;
     }
 
