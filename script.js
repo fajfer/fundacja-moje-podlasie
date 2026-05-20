@@ -1437,7 +1437,7 @@
     });
     dots.forEach(dot => {
       dot.setAttribute('opacity', '0');
-      dot.setAttribute('transform', 'translate(' + dot.getAttribute('cx') + ',' + dot.getAttribute('cy') + ') scale(0) translate(-' + dot.getAttribute('cx') + ',-' + dot.getAttribute('cy') + ')');
+      dot.removeAttribute('transform');
     });
     svg.classList.add('is-ready');
 
@@ -1471,12 +1471,10 @@
         const group = dotsByOrder[order] || [];
         if (!group.length) { resolve(); return; }
         group.forEach(dot => {
-          const cx = dot.getAttribute('cx');
-          const cy = dot.getAttribute('cy');
           dot.animate([
-            { opacity: 0, transform: 'translate(' + cx + 'px,' + cy + 'px) scale(0) translate(-' + cx + 'px,-' + cy + 'px)' },
-            { opacity: 1, transform: 'translate(' + cx + 'px,' + cy + 'px) scale(1) translate(-' + cx + 'px,-' + cy + 'px)' }
-          ], { duration: DOT_DUR, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' });
+            { opacity: 0 },
+            { opacity: 1 }
+          ], { duration: DOT_DUR, easing: 'ease', fill: 'forwards' });
         });
         setTimeout(resolve, DOT_DUR * 0.6);
       });
