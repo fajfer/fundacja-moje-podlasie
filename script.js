@@ -1511,9 +1511,11 @@
     if (!btn) return;
 
     // Restore saved preference (localStorage overrides OS setting)
-    const saved = localStorage.getItem('mp-reduce-motion');
-    if (saved === 'true')  state.reduceMotion = true;
-    if (saved === 'false') state.reduceMotion = false;
+    try {
+      const saved = localStorage.getItem('mp-reduce-motion');
+      if (saved === 'true')  state.reduceMotion = true;
+      if (saved === 'false') state.reduceMotion = false;
+    } catch (e) { /* Safari private browsing */ }
 
     function applyMotionState() {
       // CSS: toggle class on <html> so scroll-behavior on html can also be overridden
@@ -1529,7 +1531,7 @@
       if (span) span.textContent = dict[labelKey] || dict['footer.motion'];
 
       // Persist preference
-      localStorage.setItem('mp-reduce-motion', state.reduceMotion);
+      try { localStorage.setItem('mp-reduce-motion', state.reduceMotion); } catch (e) { /* */ }
     }
 
     applyMotionState();
@@ -1555,7 +1557,7 @@
      COOKIE BANNER
      ════════════════════════════════════════════════ */
   function setupCookieBanner() {
-    if (localStorage.getItem('mp-cookie-consent')) return;
+    try { if (localStorage.getItem('mp-cookie-consent')) return; } catch (e) { /* */ }
 
     const dict = I18N[state.lang];
     const banner = document.createElement('div');
@@ -1578,7 +1580,7 @@
     });
 
     function dismiss(value) {
-      localStorage.setItem('mp-cookie-consent', value);
+      try { localStorage.setItem('mp-cookie-consent', value); } catch (e) { /* */ }
       banner.classList.remove('visible');
       setTimeout(() => banner.remove(), 400);
     }
