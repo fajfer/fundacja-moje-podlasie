@@ -1469,13 +1469,14 @@
       return new Promise(resolve => {
         const group = dotsByOrder[order] || [];
         if (!group.length) { resolve(); return; }
-        group.forEach(dot => {
-          dot.getBoundingClientRect();
-          dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
-          dot.style.opacity   = '1';
-          dot.style.transform = 'scale(1)';
-        });
-        setTimeout(resolve, DOT_DUR * 0.6);
+        requestAnimationFrame(() => { requestAnimationFrame(() => {
+          group.forEach(dot => {
+            dot.style.transition = `opacity ${DOT_DUR}ms ease, transform ${DOT_DUR}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+            dot.style.opacity   = '1';
+            dot.style.transform = 'scale(1)';
+          });
+          setTimeout(resolve, DOT_DUR * 0.6);
+        }); });
       });
     }
 
@@ -1485,14 +1486,14 @@
         if (!group.length) { resolve(); return; }
         const maxLen = maxLenByOrder[order] || 300;
         const dur = maxLen * speed;
-        group.forEach(line => {
-          const len = line.getTotalLength();
-          const lineDur = len * speed;
-          line.getBoundingClientRect();
-          line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
-          line.style.strokeDashoffset = '0';
-        });
-        setTimeout(resolve, dur);
+        requestAnimationFrame(() => { requestAnimationFrame(() => {
+          group.forEach(line => {
+            const lineDur = line.getTotalLength() * speed;
+            line.style.transition = `stroke-dashoffset ${lineDur}ms linear`;
+            line.style.strokeDashoffset = '0';
+          });
+          setTimeout(resolve, dur);
+        }); });
       });
     }
 
