@@ -236,20 +236,44 @@
      ════════════════════════════════════════════════ */
   const DOCS = [
     {
-      pl: { title: 'Sprawozdanie roczne 2025', meta: 'PDF · 24 strony', body: 'Pełne sprawozdanie z działalności fundacji w 2025 roku, w tym zasięg programów, finanse i ewaluację wpływu społecznego.' },
-      en: { title: 'Annual Report 2025',        meta: 'PDF · 24 pages',  body: 'Full report on foundation activity in 2025, including program reach, finances and social-impact evaluation.' }
+      pl: { title: 'Polityka dostępności dla osób z niepełnosprawnościami' },
+      en: { title: 'Accessibility Policy for People with Disabilities' },
+      url: 'https://drive.google.com/file/d/1o6XAKz9bysnojHO2C8u_ZTqOX5lto-pz/view'
     },
     {
-      pl: { title: 'Polityka etyki AI',         meta: 'PDF · 8 stron',   body: 'Zasady, którymi kierujemy się przy projektowaniu i wdrażaniu narzędzi opartych na sztucznej inteligencji.' },
-      en: { title: 'AI Ethics Policy',          meta: 'PDF · 8 pages',   body: 'Principles guiding the design and deployment of AI-based tools across our programs.' }
+      pl: { title: 'Polityka korzystania ze sztucznej inteligencji' },
+      en: { title: 'AI Usage Policy' },
+      url: 'https://drive.google.com/file/d/1BFjO2qXn8URFTZyLCi24uug7p5Tsf15p/view'
     },
     {
-      pl: { title: 'Raport o wykluczeniu cyfrowym', meta: 'PDF · 36 stron', body: 'Diagnoza luki cyfrowej w regionie Podlasia oraz rekomendacje polityk publicznych.' },
-      en: { title: 'Digital Exclusion Report',      meta: 'PDF · 36 pages', body: 'Diagnosis of the digital gap in the Podlasie region and public-policy recommendations.' }
+      pl: { title: 'Polityka równości szans i niedyskryminacji' },
+      en: { title: 'Equal Opportunities and Non-Discrimination Policy' },
+      url: 'https://drive.google.com/file/d/1WMVW1rpOJ_6obtbGnTjvuILOq9WqX5zU/view'
     },
     {
-      pl: { title: 'Statut fundacji',           meta: 'PDF · 12 stron',  body: 'Dokument założycielski określający cele, władze i zasady działania fundacji.' },
-      en: { title: 'Foundation Bylaws',         meta: 'PDF · 12 pages',  body: 'Founding document defining goals, governance and operating principles of the foundation.' }
+      pl: { title: 'Polityka przeciwdziałania mobbingowi, dyskryminacji i cyberprzemocy' },
+      en: { title: 'Anti-Mobbing, Discrimination and Cyberbullying Policy' },
+      url: 'https://drive.google.com/file/d/11x1lnsw1lKl7Lu90RcukX7jp58x8x4d0/view'
+    },
+    {
+      pl: { title: 'Polityka bezpieczeństwa informacji' },
+      en: { title: 'Information Security Policy' },
+      url: 'https://drive.google.com/file/d/1b7pTkMavIRNUCIs-6xsqLedGGY1Op6tR/view'
+    },
+    {
+      pl: { title: 'Standardy ochrony małoletnich' },
+      en: { title: 'Child Protection Standards' },
+      url: 'https://drive.google.com/file/d/1ipbKsKULIckcucpQAF_w6BRbDk_l6ZoR/view'
+    },
+    {
+      pl: { title: 'Strategia antymobbingowa' },
+      en: { title: 'Anti-Mobbing Strategy' },
+      url: 'https://drive.google.com/file/d/1grCvpHKxfh7LCttxQcZrAx2LiA-3Xvvk/view'
+    },
+    {
+      pl: { title: 'Statut' },
+      en: { title: 'Bylaws' },
+      url: 'https://drive.google.com/file/d/1Hcc8WnHXRny3nRfEImpGBVsCdS6SbVVM/view'
     }
   ];
 
@@ -1272,22 +1296,21 @@
     if (!list) return;
     list.innerHTML = '';
 
-    DOCS.forEach((d, idx) => {
+    DOCS.forEach(d => {
       const item = d[state.lang];
       const li = document.createElement('li');
       li.innerHTML = `
-        <button class="doc-link" type="button" data-idx="${idx}" aria-haspopup="dialog">
+        <a class="doc-link" href="${d.url}" target="_blank" rel="noopener noreferrer">
           <span>
             <span class="doc-title">${item.title}</span>
-            <span class="doc-meta" aria-hidden="true">${item.meta}</span>
+            <span class="doc-meta" aria-hidden="true">PDF</span>
           </span>
           <svg class="doc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
             <line x1="4" y1="12" x2="20" y2="12"/>
             <polyline points="14,6 20,12 14,18"/>
           </svg>
-        </button>
+        </a>
       `;
-      li.querySelector('button').addEventListener('click', () => openModal(idx));
       list.appendChild(li);
     });
   }
