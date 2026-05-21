@@ -257,12 +257,15 @@
      CONTACTS
      ════════════════════════════════════════════════ */
   const CONTACTS = [
-    { dept: { pl: 'Dział Strategii',     en: 'Strategy' },     email: 'strategia@mojepodlasie.org', icon: 'compass' },
-    { dept: { pl: 'Dział Programów',     en: 'Programs' },     email: 'programy@mojepodlasie.org',  icon: 'spark' },
-    { dept: { pl: 'Edukacja',            en: 'Education' },    email: 'edukacja@mojepodlasie.org',  icon: 'cap' },
-    { dept: { pl: 'Partnerstwa',         en: 'Partnerships' }, email: 'partnerzy@mojepodlasie.org', icon: 'link' },
-    { dept: { pl: 'Media',               en: 'Press' },        email: 'media@mojepodlasie.org',     icon: 'mic' },
-    { dept: { pl: 'Sekretariat',         en: 'Front desk' },   email: 'kontakt@mojepodlasie.org',   icon: 'envelope' }
+    { dept: { pl: 'Kontakt',              en: 'Contact' },        email: 'kontakt@mojepodlasie.eu',        icon: 'envelope' },
+    { dept: { pl: 'Administracja',        en: 'Administration' }, email: 'administracja@mojepodlasie.eu',  icon: 'compass' },
+    { dept: { pl: 'Marketing',            en: 'Marketing' },      email: 'marketing@mojepodlasie.eu',      icon: 'mic' },
+    { dept: { pl: 'Dotacje',              en: 'Grants' },         email: 'dotacje@mojepodlasie.eu',        icon: 'spark' },
+    { dept: { pl: 'Logistyka',            en: 'Logistics' },      email: 'logistyka@mojepodlasie.eu',      icon: 'link' },
+    { dept: { pl: 'Księgowość',           en: 'Accounting' },     email: 'ksiegowosc@mojepodlasie.eu',     icon: 'cap' },
+    { dept: { pl: 'Sygnalista',           en: 'Whistleblower' },  email: 'sygnalista@mojepodlasie.eu',     icon: 'envelope' },
+    { dept: { pl: 'Dział Technologiczny', en: 'Technology' },     email: 'technologia@mojepodlasie.eu',    icon: 'spark' },
+    { dept: { pl: 'Strategia',            en: 'Strategy' },       email: 'strategia@mojepodlasie.eu',      icon: 'compass' }
   ];
 
   const ICONS = {
