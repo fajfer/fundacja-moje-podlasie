@@ -422,10 +422,12 @@
     renderDocs();
     renderContacts();
 
-    // Re-prepare contact icon draw state after language re-render
-    // (the IntersectionObserver that fires animateIconDraw is set up once in setupIconsDraw)
+    // Re-prepare and immediately draw contact icons after language re-render
     setTimeout(() => {
-      document.querySelectorAll('.contact-card svg').forEach(prepareIconDraw);
+      document.querySelectorAll('.contact-card svg').forEach(svg => {
+        prepareIconDraw(svg);
+        animateIconDraw(svg);
+      });
     }, 100);
 
     // Re-run typed headline in the new language
