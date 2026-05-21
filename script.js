@@ -95,7 +95,8 @@
       'lang.en.label': 'Switch to English',
       'cookie.text': 'Używamy plików cookie, aby zapewnić najlepsze działanie strony.',
       'cookie.accept': 'Akceptuję',
-      'cookie.decline': 'Odmawiam'
+      'cookie.decline': 'Odmawiam',
+      'footer.powered': 'Realizacja'
     },
     en: {
       'skip': 'Skip to main content',
@@ -187,7 +188,8 @@
       'lang.en.label': 'English (active)',
       'cookie.text': 'We use cookies to ensure the best experience on our site.',
       'cookie.accept': 'Accept',
-      'cookie.decline': 'Decline'
+      'cookie.decline': 'Decline',
+      'footer.powered': 'Powered by'
     }
   };
 
