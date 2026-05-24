@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Deklaracja dostępności — MOJE PODL@SIE">
+  <title>Deklaracja dostępności — MOJE PODL@SIE</title>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .a11y-page {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: clamp(120px, 14vh, 160px) var(--gutter) clamp(60px, 8vw, 100px);
+    }
+    .a11y-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 40px;
+      color: var(--ink);
+      transition: opacity 0.2s ease;
+    }
+    .a11y-back:hover { opacity: 0.5; }
+    .a11y-back svg { width: 18px; height: 18px; }
+    .a11y-title {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .a11y-subtitle {
+      font-size: 1.05rem;
+      color: var(--mute);
+      max-width: 56ch;
+      margin-bottom: clamp(40px, 5vw, 60px);
+    }
+    .a11y-section {
+      margin-bottom: clamp(36px, 4vw, 52px);
+    }
+    .a11y-section h2 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--ink);
+    }
+    .a11y-section p {
+      color: var(--mute);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      max-width: 60ch;
+    }
+    .a11y-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+    .a11y-section li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      color: var(--mute);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .a11y-section li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 12px;
+      height: 1.5px;
+      background: var(--ink);
+    }
+    .a11y-contact {
+      background: var(--ink);
+      color: var(--paper);
+      padding: clamp(28px, 4vw, 40px);
+      margin-top: clamp(40px, 5vw, 60px);
+    }
+    .a11y-contact h2 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      color: var(--paper);
+      border: none;
+      padding: 0;
+    }
+    .a11y-contact p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 8px;
+      max-width: 60ch;
+    }
+    .a11y-contact a {
+      color: var(--paper);
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s ease;
+    }
+    .a11y-contact a:hover { border-bottom-color: var(--paper); }
+    .a11y-lang {
+      position: fixed;
+      top: 18px;
+      right: var(--gutter);
+      z-index: 100;
+    }
+    .a11y-date {
+      font-size: 0.82rem;
+      color: var(--mute);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Language toggle -->
+<div class="a11y-lang">
+  <div class="lang-toggle" role="group" aria-label="Wybór języka">
+    <button type="button" id="langPl" aria-pressed="true" aria-label="Polski">PL</button>
+    <button type="button" id="langEn" aria-pressed="false" aria-label="English">EN</button>
+  </div>
+</div>
+
+<main class="a11y-page">
+
+  <a href="index.html" class="a11y-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <line x1="20" y1="12" x2="4" y2="12"/>
+      <polyline points="10,6 4,12 10,18"/>
+    </svg>
+    <span data-i18n="back">Powrót do strony głównej</span>
+  </a>
+
+  <h1 class="a11y-title" data-i18n="title">Deklaracja dostępności</h1>
+  <p class="a11y-subtitle" data-i18n="subtitle">Fundacja „MOJE PODL@SIE. Nowoczesne, Kreatywne, Twórcze" zobowiązuje się zapewnić dostępność swojej strony internetowej zgodnie z przepisami ustawy o dostępności cyfrowej.</p>
+
+  <div class="a11y-section">
+    <h2 data-i18n="status.title">Status zgodności</h2>
+    <p data-i18n="status.body">Strona internetowa mojepodlasie.eu została zaprojektowana i zbudowana zgodnie z wytycznymi WCAG 2.1 na poziomie AA. Stosujemy zasady dostępności na każdym etapie projektowania i rozwoju serwisu.</p>
+  </div>
+
+  <div class="a11y-section">
+    <h2 data-i18n="features.title">Funkcje dostępności</h2>
+    <ul>
+      <li data-i18n="f.skip">Odnośnik „Przejdź do treści" umożliwiający pominięcie nawigacji</li>
+      <li data-i18n="f.keyboard">Pełna obsługa nawigacji za pomocą klawiatury</li>
+      <li data-i18n="f.focus">Wyraźne wskaźniki fokusa na elementach interaktywnych</li>
+      <li data-i18n="f.contrast">Wysoki kontrast tekstu (współczynnik 19.5:1)</li>
+      <li data-i18n="f.motion">Obsługa preferencji „zmniejsz ruch" — systemowej oraz manualnej</li>
+      <li data-i18n="f.aria">Atrybuty ARIA i poprawna struktura semantyczna HTML</li>
+      <li data-i18n="f.icons">Opisy alternatywne dla ikon i elementów graficznych</li>
+      <li data-i18n="f.lang">Deklaracja języka strony — aktualizowana dynamicznie przy zmianie języka</li>
+      <li data-i18n="f.responsive">Responsywny układ dostosowany do urządzeń mobilnych, tabletów i komputerów</li>
+      <li data-i18n="f.mobile">Dostępne menu mobilne z pełnoekranową nawigacją</li>
+      <li data-i18n="f.modal">Dostępne okna modalne z pułapką fokusa i obsługą klawisza Escape</li>
+    </ul>
+  </div>
+
+  <div class="a11y-section">
+    <h2 data-i18n="tech.title">Technologie</h2>
+    <p data-i18n="tech.body">Strona została zbudowana przy użyciu HTML5, CSS3 i JavaScript. Nie wymaga żadnych wtyczek ani dodatkowego oprogramowania. Działa we wszystkich nowoczesnych przeglądarkach internetowych.</p>
+  </div>
+
+  <div class="a11y-section">
+    <h2 data-i18n="limits.title">Znane ograniczenia</h2>
+    <p data-i18n="limits.body">Dokładamy wszelkich starań, aby strona była w pełni dostępna. Jeśli napotkasz jakiekolwiek bariery dostępności, prosimy o kontakt — postaramy się je usunąć jak najszybciej.</p>
+  </div>
+
+  <div class="a11y-contact">
+    <h2 data-i18n="contact.title">Kontakt w sprawie dostępności</h2>
+    <p data-i18n="contact.body">Jeśli masz problemy z dostępnością strony lub chcesz zgłosić barierę, skontaktuj się z nami:</p>
+    <p><a href="mailto:kontakt@mojepodlasie.eu">kontakt@mojepodlasie.eu</a></p>
+    <p data-i18n="contact.response">Postaramy się odpowiedzieć w ciągu 5 dni roboczych.</p>
+  </div>
+
+  <p class="a11y-date" data-i18n="date">Deklaracja została sporządzona dnia 24 maja 2026 r.</p>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-col footer-col-left">
+    <span>© 2026 MOJE PODL@SIE — Fundacja Nowoczesna, Kreatywna, Twórcza.</span>
+    <span class="footer-credit">Realizacja <a href="https://carrotstudio.it" target="_blank" rel="noopener noreferrer">Carrotstudio.it</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  const I18N = {
+    pl: {
+      'back': 'Powrót do strony głównej',
+      'title': 'Deklaracja dostępności',
+      'subtitle': 'Fundacja „MOJE PODL@SIE. Nowoczesne, Kreatywne, Twórcze" zobowiązuje się zapewnić dostępność swojej strony internetowej zgodnie z przepisami ustawy o dostępności cyfrowej.',
+      'status.title': 'Status zgodności',
+      'status.body': 'Strona internetowa mojepodlasie.eu została zaprojektowana i zbudowana zgodnie z wytycznymi WCAG 2.1 na poziomie AA. Stosujemy zasady dostępności na każdym etapie projektowania i rozwoju serwisu.',
+      'features.title': 'Funkcje dostępności',
+      'f.skip': 'Odnośnik „Przejdź do treści" umożliwiający pominięcie nawigacji',
+      'f.keyboard': 'Pełna obsługa nawigacji za pomocą klawiatury',
+      'f.focus': 'Wyraźne wskaźniki fokusa na elementach interaktywnych',
+      'f.contrast': 'Wysoki kontrast tekstu (współczynnik 19.5:1)',
+      'f.motion': 'Obsługa preferencji „zmniejsz ruch" — systemowej oraz manualnej',
+      'f.aria': 'Atrybuty ARIA i poprawna struktura semantyczna HTML',
+      'f.icons': 'Opisy alternatywne dla ikon i elementów graficznych',
+      'f.lang': 'Deklaracja języka strony — aktualizowana dynamicznie przy zmianie języka',
+      'f.responsive': 'Responsywny układ dostosowany do urządzeń mobilnych, tabletów i komputerów',
+      'f.mobile': 'Dostępne menu mobilne z pełnoekranową nawigacją',
+      'f.modal': 'Dostępne okna modalne z pułapką fokusa i obsługą klawisza Escape',
+      'tech.title': 'Technologie',
+      'tech.body': 'Strona została zbudowana przy użyciu HTML5, CSS3 i JavaScript. Nie wymaga żadnych wtyczek ani dodatkowego oprogramowania. Działa we wszystkich nowoczesnych przeglądarkach internetowych.',
+      'limits.title': 'Znane ograniczenia',
+      'limits.body': 'Dokładamy wszelkich starań, aby strona była w pełni dostępna. Jeśli napotkasz jakiekolwiek bariery dostępności, prosimy o kontakt — postaramy się je usunąć jak najszybciej.',
+      'contact.title': 'Kontakt w sprawie dostępności',
+      'contact.body': 'Jeśli masz problemy z dostępnością strony lub chcesz zgłosić barierę, skontaktuj się z nami:',
+      'contact.response': 'Postaramy się odpowiedzieć w ciągu 5 dni roboczych.',
+      'date': 'Deklaracja została sporządzona dnia 24 maja 2026 r.'
+    },
+    en: {
+      'back': 'Back to homepage',
+      'title': 'Accessibility Statement',
+      'subtitle': 'The Foundation "MOJE PODL@SIE. Modern, Creative, Original" is committed to ensuring the accessibility of its website in accordance with digital accessibility regulations.',
+      'status.title': 'Compliance status',
+      'status.body': 'The website mojepodlasie.eu has been designed and built following WCAG 2.1 Level AA accessibility guidelines. Accessibility principles are applied at every stage of design and development.',
+      'features.title': 'Accessibility features',
+      'f.skip': '"Skip to content" link allowing users to bypass navigation',
+      'f.keyboard': 'Full keyboard navigation support',
+      'f.focus': 'Visible focus indicators on all interactive elements',
+      'f.contrast': 'High text contrast ratio (19.5:1)',
+      'f.motion': '"Reduce motion" support — both system-level and manual toggle',
+      'f.aria': 'ARIA attributes and proper semantic HTML structure',
+      'f.icons': 'Descriptive labels for icons and graphic elements',
+      'f.lang': 'Page language declaration — dynamically updated on language switch',
+      'f.responsive': 'Responsive layout adapted for mobile, tablet and desktop',
+      'f.mobile': 'Accessible mobile menu with fullscreen navigation',
+      'f.modal': 'Accessible modal dialogs with focus trap and Escape key support',
+      'tech.title': 'Technologies',
+      'tech.body': 'The website is built with HTML5, CSS3 and JavaScript. It does not require any plugins or additional software. It works in all modern web browsers.',
+      'limits.title': 'Known limitations',
+      'limits.body': 'We strive to make the website fully accessible. If you encounter any accessibility barriers, please contact us — we will do our best to address them as quickly as possible.',
+      'contact.title': 'Accessibility contact',
+      'contact.body': 'If you experience any accessibility issues or would like to report a barrier, please contact us:',
+      'contact.response': 'We will do our best to respond within 5 business days.',
+      'date': 'This statement was prepared on 24 May 2026.'
+    }
+  };
+
+  let lang = 'pl';
+
+  function apply() {
+    const dict = I18N[lang];
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) el.textContent = dict[key];
+    });
+    document.getElementById('langPl').setAttribute('aria-pressed', lang === 'pl' ? 'true' : 'false');
+    document.getElementById('langEn').setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+  }
+
+  document.getElementById('langPl').addEventListener('click', () => { lang = 'pl'; apply(); });
+  document.getElementById('langEn').addEventListener('click', () => { lang = 'en'; apply(); });
+})();
+</script>
+
+</body>
+</html>
