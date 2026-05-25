@@ -96,7 +96,9 @@
       'cookie.text': 'Używamy plików cookie, aby zapewnić najlepsze działanie strony.',
       'cookie.accept': 'Akceptuję',
       'cookie.decline': 'Odmawiam',
-      'footer.powered': 'Realizacja'
+      'footer.powered': 'Realizacja',
+      'nav.a11y': 'Dostępność',
+      'footer.a11y': 'Deklaracja dostępności'
     },
     en: {
       'skip': 'Skip to main content',
@@ -189,7 +191,9 @@
       'cookie.text': 'We use cookies to ensure the best experience on our site.',
       'cookie.accept': 'Accept',
       'cookie.decline': 'Decline',
-      'footer.powered': 'Powered by'
+      'footer.powered': 'Powered by',
+      'nav.a11y': 'Accessibility',
+      'footer.a11y': 'Accessibility Statement'
     }
   };
 
