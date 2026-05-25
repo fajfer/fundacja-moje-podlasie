@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://carrotstudiosoftwarehouse.github.io/fundacja-moje-podlasie/sitemap.xml
+Sitemap: https://mojepodlasie.eu/sitemap.xml
