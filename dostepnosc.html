@@ -85,6 +85,47 @@
       height: 1.5px;
       background: var(--ink);
     }
+    .a11y-howto {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 0;
+    }
+    @media (max-width: 680px) {
+      .a11y-howto { grid-template-columns: 1fr; }
+    }
+    .howto-card {
+      background: #F8F8FA;
+      padding: 22px 24px;
+      border-radius: 0;
+      border-left: 3px solid var(--ink);
+    }
+    .howto-card .howto-label {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .howto-card .howto-desc {
+      font-size: 0.9rem;
+      color: var(--mute);
+      line-height: 1.6;
+    }
+    .howto-card kbd {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin: 0 2px;
+      vertical-align: 1px;
+    }
     .a11y-contact {
       background: var(--ink);
       color: var(--paper);
@@ -173,6 +214,37 @@
   </div>
 
   <div class="a11y-section">
+    <h2 data-i18n="howto.title">Jak korzystać z funkcji dostępności</h2>
+    <p data-i18n="howto.intro">Poniżej znajdziesz krótki przewodnik, jak aktywować i używać wbudowanych funkcji dostępności na tej stronie.</p>
+    <div class="a11y-howto">
+      <div class="howto-card">
+        <div class="howto-label" data-i18n="h.keyboard.title">Nawigacja klawiaturą</div>
+        <div class="howto-desc" data-i18n="h.keyboard.desc">Użyj klawisza <kbd>Tab</kbd> aby przechodzić między elementami, <kbd>Enter</kbd> aby aktywować link lub przycisk, oraz <kbd>Esc</kbd> aby zamknąć menu lub okno.</div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-label" data-i18n="h.skip.title">Przejdź do treści</div>
+        <div class="howto-desc" data-i18n="h.skip.desc">Naciśnij <kbd>Tab</kbd> zaraz po załadowaniu strony — pojawi się link „Przejdź do treści głównej", który pozwala pominąć nawigację.</div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-label" data-i18n="h.motion.title">Zatrzymanie animacji</div>
+        <div class="howto-desc" data-i18n="h.motion.desc">Kliknij przycisk „Zatrzymaj animacje" w stopce strony. Możesz też włączyć opcję „Zmniejsz ruch" w ustawieniach systemu operacyjnego.</div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-label" data-i18n="h.zoom.title">Powiększanie tekstu</div>
+        <div class="howto-desc" data-i18n="h.zoom.desc">Użyj skrótu <kbd>Ctrl</kbd> + <kbd>+</kbd> (Windows) lub <kbd>⌘</kbd> + <kbd>+</kbd> (Mac) aby powiększyć stronę. Układ dostosuje się automatycznie.</div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-label" data-i18n="h.lang.title">Zmiana języka</div>
+        <div class="howto-desc" data-i18n="h.lang.desc">Kliknij przycisk PL / EN w prawym górnym rogu strony. Cała treść, w tym nawigacja i etykiety, zmieni się natychmiast.</div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-label" data-i18n="h.reader.title">Czytnik ekranu</div>
+        <div class="howto-desc" data-i18n="h.reader.desc">Strona jest w pełni kompatybilna z czytnikami ekranu (VoiceOver, NVDA, JAWS). Wszystkie sekcje, przyciski i ikony posiadają opisowe etykiety.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="a11y-section">
     <h2 data-i18n="tech.title">Technologie</h2>
     <p data-i18n="tech.body">Strona została zbudowana przy użyciu HTML5, CSS3 i JavaScript. Nie wymaga żadnych wtyczek ani dodatkowego oprogramowania. Działa we wszystkich nowoczesnych przeglądarkach internetowych.</p>
   </div>
@@ -223,6 +295,20 @@
       'f.responsive': 'Responsywny układ dostosowany do urządzeń mobilnych, tabletów i komputerów',
       'f.mobile': 'Dostępne menu mobilne z pełnoekranową nawigacją',
       'f.modal': 'Dostępne okna modalne z pułapką fokusa i obsługą klawisza Escape',
+      'howto.title': 'Jak korzystać z funkcji dostępności',
+      'howto.intro': 'Poniżej znajdziesz krótki przewodnik, jak aktywować i używać wbudowanych funkcji dostępności na tej stronie.',
+      'h.keyboard.title': 'Nawigacja klawiaturą',
+      'h.keyboard.desc': 'Użyj klawisza <kbd>Tab</kbd> aby przechodzić między elementami, <kbd>Enter</kbd> aby aktywować link lub przycisk, oraz <kbd>Esc</kbd> aby zamknąć menu lub okno.',
+      'h.skip.title': 'Przejdź do treści',
+      'h.skip.desc': 'Naciśnij <kbd>Tab</kbd> zaraz po załadowaniu strony — pojawi się link „Przejdź do treści głównej", który pozwala pominąć nawigację.',
+      'h.motion.title': 'Zatrzymanie animacji',
+      'h.motion.desc': 'Kliknij przycisk „Zatrzymaj animacje" w stopce strony. Możesz też włączyć opcję „Zmniejsz ruch" w ustawieniach systemu operacyjnego.',
+      'h.zoom.title': 'Powiększanie tekstu',
+      'h.zoom.desc': 'Użyj skrótu <kbd>Ctrl</kbd> + <kbd>+</kbd> (Windows) lub <kbd>⌘</kbd> + <kbd>+</kbd> (Mac) aby powiększyć stronę. Układ dostosuje się automatycznie.',
+      'h.lang.title': 'Zmiana języka',
+      'h.lang.desc': 'Kliknij przycisk PL / EN w prawym górnym rogu strony. Cała treść, w tym nawigacja i etykiety, zmieni się natychmiast.',
+      'h.reader.title': 'Czytnik ekranu',
+      'h.reader.desc': 'Strona jest w pełni kompatybilna z czytnikami ekranu (VoiceOver, NVDA, JAWS). Wszystkie sekcje, przyciski i ikony posiadają opisowe etykiety.',
       'tech.title': 'Technologie',
       'tech.body': 'Strona została zbudowana przy użyciu HTML5, CSS3 i JavaScript. Nie wymaga żadnych wtyczek ani dodatkowego oprogramowania. Działa we wszystkich nowoczesnych przeglądarkach internetowych.',
       'limits.title': 'Znane ograniczenia',
@@ -250,6 +336,20 @@
       'f.responsive': 'Responsive layout adapted for mobile, tablet and desktop',
       'f.mobile': 'Accessible mobile menu with fullscreen navigation',
       'f.modal': 'Accessible modal dialogs with focus trap and Escape key support',
+      'howto.title': 'How to use accessibility features',
+      'howto.intro': 'Below you will find a short guide on how to activate and use the built-in accessibility features on this website.',
+      'h.keyboard.title': 'Keyboard navigation',
+      'h.keyboard.desc': 'Use the <kbd>Tab</kbd> key to move between elements, <kbd>Enter</kbd> to activate a link or button, and <kbd>Esc</kbd> to close a menu or dialog.',
+      'h.skip.title': 'Skip to content',
+      'h.skip.desc': 'Press <kbd>Tab</kbd> right after the page loads — a "Skip to main content" link will appear, allowing you to bypass the navigation.',
+      'h.motion.title': 'Stop animations',
+      'h.motion.desc': 'Click the "Reduce motion" button in the website footer. You can also enable "Reduce motion" in your operating system settings.',
+      'h.zoom.title': 'Zoom in',
+      'h.zoom.desc': 'Use <kbd>Ctrl</kbd> + <kbd>+</kbd> (Windows) or <kbd>⌘</kbd> + <kbd>+</kbd> (Mac) to zoom in. The layout will adapt automatically.',
+      'h.lang.title': 'Change language',
+      'h.lang.desc': 'Click the PL / EN toggle in the top right corner. All content, including navigation and labels, will update instantly.',
+      'h.reader.title': 'Screen reader',
+      'h.reader.desc': 'The website is fully compatible with screen readers (VoiceOver, NVDA, JAWS). All sections, buttons and icons have descriptive labels.',
       'tech.title': 'Technologies',
       'tech.body': 'The website is built with HTML5, CSS3 and JavaScript. It does not require any plugins or additional software. It works in all modern web browsers.',
       'limits.title': 'Known limitations',
@@ -268,7 +368,13 @@
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[key]) el.textContent = dict[key];
+      if (!dict[key]) return;
+      // howto descriptions need innerHTML for <kbd> tags
+      if (el.classList.contains('howto-desc')) {
+        el.innerHTML = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
     });
     document.getElementById('langPl').setAttribute('aria-pressed', lang === 'pl' ? 'true' : 'false');
     document.getElementById('langEn').setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
